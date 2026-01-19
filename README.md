@@ -11,7 +11,6 @@ wrong-questions-statistics/
 │   ├── stores/             # Zustand状态管理
 │   ├── hooks/              # 自定义Hooks
 │   └── styles/             # 样式文件
-├── vue-version/            # Vue版本（旧版本，已归档）
 ├── public/                 # 静态资源
 ├── package.json            # React版本依赖配置
 ├── vite.config.js          # Vite配置（React）
@@ -26,10 +25,6 @@ wrong-questions-statistics/
 - **Vite** - 构建工具
 - **SCSS** - 样式预处理器
 - **Lucide React** - 图标库
-
-### Vue版本（已归档）
-- 位于 `vue-version/` 文件夹
-- 使用 Vue 3 + Pinia
 
 ## 功能特性
 
