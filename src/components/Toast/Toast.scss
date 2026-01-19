@@ -1,0 +1,64 @@
+@use '../../styles/variables' as *;
+
+.toast-container {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    border-radius: $radius-md;
+    background: white;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    z-index: 3000;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+
+    &.visible {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+
+    &.hidden {
+        opacity: 0;
+        transform: translateX(-50%) translateY(20px);
+    }
+
+    &.success {
+        border-left: 4px solid $success;
+        color: darken($success, 10%);
+
+        svg {
+            color: $success;
+        }
+    }
+
+    &.error {
+        border-left: 4px solid $danger;
+        color: darken($danger, 10%);
+
+        svg {
+            color: $danger;
+        }
+    }
+
+    span {
+        font-size: 0.95rem;
+        font-weight: 500;
+    }
+
+    .close {
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: $text-muted;
+        padding: 2px;
+        display: flex;
+        align-items: center;
+
+        &:hover {
+            color: $text-secondary;
+        }
+    }
+}

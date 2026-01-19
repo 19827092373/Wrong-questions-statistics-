@@ -1,0 +1,88 @@
+@use './variables' as *;
+
+@mixin neu-raised {
+    background: $bg-card;
+    box-shadow: $shadow-light, $shadow-dark;
+    border-radius: $radius-md;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+@mixin neu-pressed {
+    background: $bg-card;
+    box-shadow: $shadow-inset-light, $shadow-inset-dark;
+    border-radius: $radius-md;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@mixin neu-flat {
+    background: $bg-card;
+    box-shadow: none;
+    border-radius: $radius-md;
+    border: 1px solid transparent;
+}
+
+@mixin neu-button {
+    @include neu-raised;
+    cursor: pointer;
+    transition: all $transition-fast;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: $text-secondary;
+    user-select: none;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow:
+            -8px -8px 16px rgba(255, 255, 255, 0.8),
+            8px 8px 16px rgba(0, 0, 0, 0.18);
+        color: $primary;
+    }
+
+    &:active {
+        transform: translateY(0);
+        @include neu-pressed;
+    }
+
+    &.primary {
+        color: $primary;
+
+        &:hover {
+            color: $primary-dark;
+        }
+    }
+
+    &.accent {
+        color: $accent;
+
+        &:hover {
+            color: $accent-hover;
+        }
+    }
+
+    &.danger {
+        color: $danger;
+    }
+}
+
+@mixin neu-input {
+    @include neu-pressed;
+    width: 100%;
+    padding: 12px 16px;
+    outline: none;
+    font-family: inherit;
+    color: $text-primary;
+    transition: all $transition-fast;
+
+    &:focus {
+        box-shadow:
+            inset -4px -4px 8px rgba(255, 255, 255, 0.8),
+            inset 4px 4px 8px rgba(0, 0, 0, 0.15),
+            0 0 0 2px rgba($primary, 0.1);
+    }
+
+    &::placeholder {
+        color: $text-muted;
+    }
+}

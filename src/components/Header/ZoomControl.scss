@@ -1,0 +1,88 @@
+@use '../../styles/variables' as *;
+@use '../../styles/neumorphism' as *;
+
+.zoom-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    background: $bg-base; // Or a slightly different shade if needed
+    border-radius: 20px;
+    @include neu-flat;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    margin-right: 16px;
+
+    .zoom-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        border: none;
+        color: $text-secondary;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        padding: 4px;
+        border-radius: 4px;
+
+        &:hover {
+            color: $primary;
+            background: rgba($primary, 0.1);
+        }
+
+        &.text-btn {
+            gap: 4px;
+            font-size: 0.75rem;
+            padding: 4px 8px;
+
+            span {
+                white-space: nowrap;
+            }
+        }
+    }
+
+    .slider-container {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        width: 120px;
+
+        .zoom-slider {
+            flex: 1;
+            height: 4px;
+            -webkit-appearance: none;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 2px;
+            outline: none;
+
+            &::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+                background: $primary;
+                cursor: pointer;
+                transition: transform 0.1s;
+
+                &:hover {
+                    transform: scale(1.2);
+                }
+            }
+        }
+
+        .zoom-value {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: $text-primary;
+            width: 36px;
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+        }
+    }
+
+    .divider {
+        width: 1px;
+        height: 16px;
+        background: rgba(0, 0, 0, 0.1);
+        margin: 0 4px;
+    }
+}

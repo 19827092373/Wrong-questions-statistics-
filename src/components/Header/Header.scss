@@ -1,0 +1,121 @@
+@use '../../styles/variables' as *;
+@use '../../styles/neumorphism' as *;
+
+.app-header {
+    padding: 1rem 1.5rem;
+    z-index: 100;
+
+    .header-content {
+        @include neu-flat;
+        padding: 0.8rem 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        background: rgba($bg-card, 0.8);
+        backdrop-filter: blur(10px);
+
+        // 增加一点凸起感，像是一个浮动的岛
+        box-shadow:
+            -4px -4px 10px rgba(255, 255, 255, 0.6),
+            4px 4px 10px rgba(0, 0, 0, 0.05);
+    }
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    .logo-icon {
+        @include neu-pressed;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+    }
+
+    .title-group {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        h1 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: $primary-dark;
+            margin: 0;
+        }
+
+        .version-tag {
+            font-size: 0.7rem;
+            background: rgba($primary, 0.1);
+            color: $primary;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+    }
+}
+
+.status-section {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    .settings-btn {
+        @include neu-button;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        padding: 0;
+        color: $text-secondary;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:hover {
+            color: $primary;
+        }
+    }
+
+    .status-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.85rem;
+        color: $text-secondary;
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: $success;
+            box-shadow: 0 0 8px $success;
+            animation: pulse 2s infinite;
+        }
+    }
+
+    .credit-tag {
+        font-size: 0.85rem;
+        color: $text-muted;
+        padding-left: 15px;
+        border-left: 1px solid rgba($text-muted, 0.3);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 0.6;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.6;
+    }
+}

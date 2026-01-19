@@ -1,0 +1,62 @@
+@use './variables' as *;
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: $font-family;
+    background-color: $bg-base;
+    color: $text-primary;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden; // 防止页面整体滚动
+}
+
+#root {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+button {
+    font-family: inherit;
+    border: none;
+    background: none;
+    padding: 0;
+}
+
+input,
+textarea {
+    font-family: inherit;
+}
+
+// 滚动条样式
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba($text-secondary, 0.2);
+    border-radius: $radius-full;
+
+    &:hover {
+        background: rgba($text-secondary, 0.4);
+    }
+}
+
+.icon {
+    width: 1.2em;
+    height: 1.2em;
+    display: inline-block;
+    vertical-align: middle;
+}

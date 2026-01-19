@@ -1,0 +1,161 @@
+@use '../../styles/variables' as *;
+@use '../../styles/neumorphism' as *;
+@use '../../styles/animations' as *;
+
+.problem-matrix-panel {
+    @include neu-raised;
+    padding: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+
+    .title {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 700;
+        color: $primary;
+        font-size: 1.1rem;
+    }
+
+    .controls {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.9rem;
+        color: $text-secondary;
+
+        input {
+            @include neu-input;
+            width: 80px;
+            padding: 6px 10px;
+            text-align: center;
+        }
+    }
+}
+
+.matrix-content {
+    flex: 1;
+    overflow: hidden; // 禁止滚动，强制填充
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.problem-grid {
+    flex: 1;
+    display: grid;
+    // grid-template-columns 由内联样式控制
+    grid-auto-rows: 1fr; // 让行自动填充高度
+    gap: 20px;
+    padding: 10px;
+    justify-content: stretch;
+    align-content: stretch;
+}
+
+.problem-cell {
+    @include neu-button;
+    @include bento-hover;
+    width: 100%;
+    height: 100%; // 强制填满格子
+    aspect-ratio: auto; // 取消固定宽高比
+    position: relative;
+    font-size: 1.8rem; // 更大字体
+    color: $text-primary;
+    border-radius: $radius-lg;
+
+
+
+    .badge {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background: $primary;
+        color: white;
+        font-size: 0.7rem;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        animation: fadeIn 0.2s ease;
+    }
+
+    &:active {
+        animation: clickBounce 0.2s ease;
+    }
+
+    // 动态颜色通过内联样式应用
+    // 当有错误次数时，会应用动态计算的渐变色
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.legend {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin-top: 15px;
+    font-size: 0.8rem;
+    color: $text-secondary;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    .legend-gradient {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        align-items: center;
+
+        .gradient-bar {
+            width: 200px;
+            height: 20px;
+            border-radius: 10px;
+            background: linear-gradient(
+                to right,
+                hsl(60, 70%, 85%),  // 黄色（0次）
+                hsl(50, 75%, 80%),  // 黄橙色
+                hsl(40, 80%, 75%),  // 橙色
+                hsl(30, 85%, 70%),  // 橙红色
+                hsl(20, 90%, 65%),  // 红橙色
+                hsl(10, 92%, 60%),  // 深红橙色
+                hsl(0, 95%, 50%)    // 红色（最高）
+            );
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .gradient-labels {
+            display: flex;
+            justify-content: space-between;
+            width: 200px;
+            font-size: 0.75rem;
+            color: $text-secondary;
+        }
+    }
+}
+
+.related-toast {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    pointer-events: none;
+}

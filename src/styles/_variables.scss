@@ -1,0 +1,48 @@
+// 新拟态配色
+$bg-base: #E4E8EC;
+$bg-card: #E4E8EC;
+$bg-pressed: darken($bg-base, 3%); // 按下状态背景
+
+// 阴影
+$shadow-light: -6px -6px 14px rgba(255, 255, 255, 0.7);
+$shadow-dark: 6px 6px 14px rgba(0, 0, 0, 0.15);
+$shadow-inset-light: inset -3px -3px 7px rgba(255, 255, 255, 0.7);
+$shadow-inset-dark: inset 3px 3px 7px rgba(0, 0, 0, 0.1);
+
+// 主题色
+$primary: #4B6CB7;
+$primary-light: #5B7DCF;
+$primary-dark: #182848;
+$accent: #FF7733;
+$accent-hover: #FF5500;
+$success: #27AE60;
+$warning: #F1C40F;
+$danger: #FF4500;
+
+// 热力图颜色
+$heat-0: transparent;
+$heat-1: #FFE4B5;
+$heat-2: #FFB347;
+$heat-3: #FF8C00;
+$heat-4: #FF4500;
+
+// 文字
+$text-primary: #333333;
+$text-secondary: #666666;
+$text-muted: #999999;
+$text-light: #FFFFFF;
+
+// 圆角
+$radius-sm: 8px;
+$radius-md: 12px;
+$radius-lg: 16px;
+$radius-xl: 24px;
+$radius-full: 9999px;
+
+// 动画
+$transition-fast: 0.15s ease;
+$transition-normal: 0.25s ease;
+$transition-slow: 0.4s ease;
+
+// 字体
+$font-family: 'Microsoft YaHei', -apple-system, BlinkMacSystemFont, sans-serif;

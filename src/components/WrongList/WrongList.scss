@@ -1,0 +1,169 @@
+@use '../../styles/variables' as *;
+@use '../../styles/neumorphism' as *;
+@use '../../styles/animations' as *;
+
+.wrong-list-panel {
+    @include neu-raised;
+    padding: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    .title {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 700;
+        color: $primary;
+        font-size: 1.1rem;
+    }
+}
+
+.reset-btn {
+    @include neu-button;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    color: $text-muted;
+
+    &:hover {
+        color: $danger;
+    }
+}
+
+.stats-cards {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.stat-card {
+    flex: 1;
+    @include neu-pressed;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+
+    .label {
+        font-size: 0.8rem;
+        color: $text-secondary;
+        margin-bottom: 5px;
+    }
+
+    .value {
+        font-size: 1.5rem;
+        font-weight: 800;
+        line-height: 1;
+    }
+
+    .icon {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        opacity: 0.2;
+        transform: scale(2.5);
+    }
+
+    &.blue {
+        .value {
+            color: $primary;
+        }
+
+        border-left: 3px solid $primary;
+    }
+
+    &.red {
+        .value {
+            color: $danger;
+        }
+
+        border-left: 3px solid $danger;
+    }
+}
+
+.list-content {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: $text-muted;
+
+    .illustration {
+        font-size: 3rem;
+        margin-bottom: 10px;
+    }
+}
+
+.wrong-items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.wrong-item {
+    @include neu-flat;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.4);
+
+    .rank {
+        width: 24px;
+        height: 24px;
+        background: $text-muted;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+        font-weight: bold;
+    }
+
+    .problem-num {
+        font-weight: 600;
+        min-width: 60px;
+        color: $text-primary;
+    }
+
+    .error-bar-container {
+        flex: 1;
+        height: 6px;
+        background: rgba(0, 0, 0, 0.05);
+        border-radius: $radius-full;
+        overflow: hidden;
+
+        .error-bar {
+            height: 100%;
+            background: linear-gradient(90deg, $accent, $danger);
+            border-radius: $radius-full;
+        }
+    }
+
+    .count-badge {
+        font-size: 0.85rem;
+        font-weight: bold;
+        color: $danger;
+    }
+
+    &.top-3 {
+        .rank {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            box-shadow: 0 2px 4px rgba(255, 165, 0, 0.3);
+        }
+    }
+}

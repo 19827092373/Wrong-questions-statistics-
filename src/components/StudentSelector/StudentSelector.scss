@@ -1,0 +1,297 @@
+@use '../../styles/variables' as *;
+@use '../../styles/neumorphism' as *;
+@use '../../styles/animations' as *;
+
+.student-selector-panel {
+    @include neu-raised;
+    padding: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: 15px;
+    background-color: $bg-base;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .title {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 700;
+        color: $primary;
+        font-size: 1.1rem;
+    }
+}
+
+.icon-btn {
+    @include neu-button;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    padding: 0;
+
+    &.danger {
+        color: $danger;
+
+        &:hover {
+            color: darken($danger, 10%);
+        }
+    }
+}
+
+.import-area {
+    margin-top: 10px;
+
+    textarea {
+        @include neu-input;
+        border-radius: $radius-sm;
+        resize: vertical;
+        min-height: 100px;
+        margin-bottom: 10px;
+    }
+
+    .action-row {
+        display: flex;
+        justify-content: flex-end;
+    }
+}
+
+.neu-btn {
+    @include neu-button;
+    padding: 10px 20px;
+    border-radius: $radius-sm;
+    font-size: 0.95rem;
+
+    &.small {
+        padding: 6px 14px;
+        font-size: 0.85rem;
+    }
+
+    &.primary {
+        color: $primary;
+
+        &:hover {
+            color: $primary-dark;
+        }
+    }
+
+    &.accent {
+        color: $accent;
+        background: linear-gradient(145deg, rgba($accent, 0.05), transparent);
+
+        &:hover {
+            color: $accent-hover;
+        }
+    }
+
+    &.full-width {
+        width: 100%;
+        justify-content: center;
+        padding: 12px;
+        font-size: 1.1rem;
+    }
+}
+
+.control-area {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 15px;
+    @include neu-flat;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.counter-control {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    label {
+        font-size: 0.9rem;
+        color: $text-secondary;
+        font-weight: 600;
+    }
+
+    .stepper {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        @include neu-pressed;
+        padding: 4px 8px;
+        border-radius: $radius-full;
+        background: darken($bg-base, 2%);
+
+        button {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+            color: $text-secondary;
+
+            &:hover {
+                color: $primary;
+                background: rgba(0, 0, 0, 0.05);
+            }
+        }
+
+        span {
+            font-weight: bold;
+            min-width: 20px;
+            text-align: center;
+        }
+    }
+}
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: $text-primary;
+}
+
+.text-btn {
+    font-size: 0.8rem;
+    cursor: pointer;
+
+    &.danger {
+        color: $text-muted;
+
+        &:hover {
+            color: $danger;
+        }
+    }
+}
+
+.history-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    min-height: 40px;
+}
+
+.history-tag {
+    background: lighten($bg-base, 2%);
+    border: 1px solid rgba($primary, 0.2);
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: $primary-dark;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+
+    .time {
+        font-size: 0.7rem;
+        color: $text-muted;
+        font-weight: normal;
+    }
+}
+
+.empty-text {
+    font-size: 0.8rem;
+    color: $text-muted;
+    font-style: italic;
+    padding: 5px;
+}
+
+.divider {
+    height: 1px;
+    background: rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    margin: 5px 0;
+}
+
+.student-grid-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: $primary;
+}
+
+.student-grid-wrapper {
+    flex: 1;
+    overflow-y: auto;
+    @include neu-pressed;
+    padding: 10px;
+    border-radius: $radius-sm;
+}
+
+.student-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+    gap: 10px;
+}
+
+.student-card {
+    background: lighten($bg-base, 2%);
+    padding: 8px 4px;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: $text-secondary;
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+
+    &.highlight {
+        background: $heat-1;
+        border-color: $accent;
+        color: darken($accent, 10%);
+        font-weight: bold;
+        transform: scale(1.1);
+        box-shadow: 0 4px 12px rgba($accent, 0.2);
+        z-index: 2;
+        animation: pulse-highlight 0.5s ease;
+    }
+
+    &.rolling {
+        background: rgba($primary, 0.15);
+        border-color: $primary;
+        color: $primary;
+        transform: scale(1.05);
+        box-shadow: 0 0 8px rgba($primary, 0.4);
+    }
+}
+
+@keyframes pulse-highlight {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.15);
+    }
+
+    100% {
+        transform: scale(1.1);
+    }
+}
+
+.empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: $text-muted;
+    padding: 20px;
+    font-size: 0.9rem;
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.3s ease;
+}
+
+.animate-slide-right {
+    animation: slideInRight 0.3s ease forwards;
+}

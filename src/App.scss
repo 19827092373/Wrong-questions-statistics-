@@ -1,0 +1,80 @@
+@use './styles/variables' as *;
+@use './styles/neumorphism' as *;
+
+.app-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: $bg-base;
+}
+
+.main-content {
+    flex: 1;
+    padding: 1rem 1.5rem;
+    overflow: hidden;
+}
+
+.layout-grid {
+    display: grid;
+    grid-template-columns: 320px 1fr 300px;
+    gap: 20px;
+    height: 100%;
+}
+
+.section-left,
+.section-right,
+.section-center {
+    height: 100%;
+    overflow: hidden;
+}
+
+.matrix-wrapper {
+    height: 100%;
+    position: relative;
+}
+
+.fab-export {
+    @include neu-button;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, $primary, $primary-dark);
+    color: white;
+    box-shadow: 0 4px 10px rgba($primary, 0.4);
+    z-index: 50;
+
+    &:hover {
+        transform: scale(1.1) rotate(5deg);
+        box-shadow: 0 8px 20px rgba($primary, 0.5);
+    }
+}
+
+// 响应式布局
+@media (max-width: 1200px) {
+    .layout-grid {
+        grid-template-columns: 280px 1fr 260px;
+        gap: 15px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .layout-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+        overflow-y: auto;
+    }
+
+    .app-container {
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .section-left,
+    .section-center,
+    .section-right {
+        height: 500px; // 固定最小高度 in stacked mode
+    }
+}
