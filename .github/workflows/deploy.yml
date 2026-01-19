@@ -30,8 +30,8 @@ jobs:
         host: ${{ secrets.SERVER_IP }}
         username: root
         key: ${{ secrets.SERVER_SSH_KEY }}
-        source: "dist/*"
+        source: "dist"
         target: "/www/wwwroot/mistakes.teacherlab.cn"
         rm: false
         overwrite: true
-        strip_components: 0
+        strip_components: 1
