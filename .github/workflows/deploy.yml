@@ -22,7 +22,18 @@ jobs:
       run: npm ci
     
     - name: Build project
-      run: npm run build
+      run: |
+        # Build root (Lite version)
+        npm run build
+        
+        # Build pro directory (Pro version)
+        cd pro
+        npm install
+        npm run build
+        cd ..
+        
+        # Merge pro build into root dist
+        mv pro/dist dist/pro
     
     - name: Deploy to server
       uses: appleboy/scp-action@master

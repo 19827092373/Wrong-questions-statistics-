@@ -1,0 +1,382 @@
+/* ===========================================
+   学情诊断系统 Pro - Design System v4
+   明暗双模式主题系统
+   =========================================== */
+
+/* Google Fonts: Tech Startup Pairing */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===========================================
+   CSS Variables - Refined Light Mode
+   =========================================== */
+@layer base {
+  :root {
+    /* Primary - Indigo */
+    --primary: 239 84% 67%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Background - Premium White/Slate - Higher Contrast for Screens */
+    --background: 210 40% 98%;
+    --foreground: 222 47% 11%;
+
+    /* Card */
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    /* Popover */
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    /* Secondary */
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 47% 11%;
+
+    /* Muted */
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+
+    /* Accent */
+    --accent: 210 40% 96%;
+    --accent-foreground: 222 47% 11%;
+
+    /* Destructive */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Border - Darker for visibility */
+    --border: 214 32% 85%;
+    --input: 214 32% 85%;
+    --ring: 239 84% 67%;
+
+    /* Radius */
+    --radius: 1rem;
+
+    /* Special: Glass effect refinement - Less Transparency for Readability */
+    --glass-bg: rgba(255, 255, 255, 0.92);
+    --glass-border: rgba(203, 213, 225, 0.8);
+    --glass-shadow: rgba(148, 163, 184, 0.08);
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    /* Cleaner background for screens */
+    background: #F8FAFC; 
+    background-attachment: fixed;
+  }
+
+
+  /* Headings use Space Grotesk */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+  }
+}
+
+/* ===========================================
+   Glass Morphism Components
+   =========================================== */
+@layer components {
+  .glass-panel {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(203, 213, 225, 1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  }
+
+  .glass-card {
+    @apply bg-white border border-slate-200;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .glass-card:hover {
+    @apply border-slate-300;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    transform: translateY(-2px);
+  }
+
+  /* Card Elevated */
+  .card-elevated {
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    background: #FFFFFF;
+    border: 1px solid rgba(226, 232, 240, 1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  }
+}
+
+
+/* ===========================================
+   Custom Scrollbar
+   =========================================== */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.25);
+  border-radius: 100px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.4);
+}
+
+/* Firefox */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.25) transparent;
+}
+
+/* ===========================================
+   Animations - Enhanced for smoother experience
+   =========================================== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(99, 102, 241, 0.5);
+  }
+}
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .animate-shimmer {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.08) 50%,
+      transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2.5s infinite;
+  }
+
+  .animate-pulse-subtle {
+    animation: pulse-subtle 2.5s ease-in-out infinite;
+  }
+
+  .animate-glow {
+    animation: glowPulse 2s ease-in-out infinite;
+  }
+}
+
+/* ===========================================
+   Text Effects
+   =========================================== */
+@layer utilities {
+  .text-glow {
+    text-shadow: 0 0 30px rgba(79, 70, 229, 0.5);
+  }
+
+  .text-glow-sm {
+    text-shadow: 0 0 15px rgba(79, 70, 229, 0.4);
+  }
+
+  .text-glow-orange {
+    text-shadow: 0 0 30px rgba(249, 115, 22, 0.5);
+  }
+
+  .text-gradient {
+    background: linear-gradient(135deg, #818CF8 0%, #4F46E5 50%, #F97316 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-subtle {
+    background: linear-gradient(135deg, #F8FAFC 0%, #94A3B8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+/* ===========================================
+   Interactive States
+   =========================================== */
+/* All clickable elements get pointer cursor */
+button,
+[role="button"],
+.cursor-pointer,
+a {
+  cursor: pointer;
+}
+
+/* Prevent text selection on interactive elements */
+button,
+[role="button"],
+.no-select {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Focus Visible */
+:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+}
+
+/* Pro Max Utilities */
+@layer utilities {
+  /* Pro Max Shadows - Colored */
+  .shadow-premium {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  }
+
+  .shadow-soft {
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+  }
+
+  .shadow-indigo-glow {
+    box-shadow: 0 4px 14px 0 rgba(99, 102, 241, 0.39);
+  }
+
+  /* Glass Effects - High Contrast */
+  .glass-premium {
+    @apply backdrop-blur-3xl bg-white/95 border border-slate-200;
+  }
+}
+
+
+/* ===========================================
+   Data Visualization - Error Rate Colors
+   =========================================== */
+@layer utilities {
+  /* 0% - Perfect */
+  .rate-perfect {
+    --rate-bg: rgba(34, 197, 94, 0.12);
+    --rate-border: rgba(34, 197, 94, 0.35);
+    --rate-text: #4ADE80;
+  }
+
+  /* 1-20% - Good */
+  .rate-good {
+    --rate-bg: rgba(74, 222, 128, 0.08);
+    --rate-border: rgba(74, 222, 128, 0.25);
+    --rate-text: #86EFAC;
+  }
+
+  /* 21-50% - Warning */
+  .rate-warning {
+    --rate-bg: rgba(250, 204, 21, 0.1);
+    --rate-border: rgba(250, 204, 21, 0.3);
+    --rate-text: #FDE047;
+  }
+
+  /* 51-70% - Caution */
+  .rate-caution {
+    --rate-bg: rgba(251, 146, 60, 0.12);
+    --rate-border: rgba(251, 146, 60, 0.35);
+    --rate-text: #FB923C;
+  }
+
+  /* 71-100% - Critical */
+  .rate-critical {
+    --rate-bg: rgba(239, 68, 68, 0.15);
+    --rate-border: rgba(239, 68, 68, 0.4);
+    --rate-text: #F87171;
+  }
+}
+
+/* ===========================================
+   Responsive Adjustments
+   =========================================== */
+@media (max-width: 768px) {
+  .glass-panel {
+    backdrop-filter: blur(12px);
+  }
+
+  body {
+    font-size: 14px;
+  }
+}
+
+/* ===========================================
+   Print Styles
+   =========================================== */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  .glass-panel,
+  .glass-card {
+    background: white !important;
+    border: 1px solid #e2e8f0 !important;
+    box-shadow: none !important;
+  }
+}
