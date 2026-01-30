@@ -44,10 +44,10 @@ export default function InputLane({ laneId, students, totalQuestions, onLaneComp
   }
 
   const getGridConfig = () => {
-    if (totalQuestions <= 12) return { cols: 'grid-cols-3', fontSize: 'text-3xl' };
-    if (totalQuestions <= 20) return { cols: 'grid-cols-4', fontSize: 'text-2xl' };
-    if (totalQuestions <= 30) return { cols: 'grid-cols-5', fontSize: 'text-xl' };
-    return { cols: 'grid-cols-6', fontSize: 'text-lg' };
+    if (totalQuestions <= 12) return { cols: 'grid-cols-3', fontSize: 'text-7xl' };
+    if (totalQuestions <= 20) return { cols: 'grid-cols-4', fontSize: 'text-6xl' };
+    if (totalQuestions <= 30) return { cols: 'grid-cols-5', fontSize: 'text-5xl' };
+    return { cols: 'grid-cols-6', fontSize: 'text-4xl' };
   };
 
   const grid = getGridConfig();
@@ -106,7 +106,7 @@ export default function InputLane({ laneId, students, totalQuestions, onLaneComp
                 'aspect-square flex items-center justify-center rounded-lg font-black transition-all duration-300 border-2 shadow-soft',
                 selectedWrong.has(num)
                   ? 'bg-red-500 border-red-400 text-white shadow-premium scale-105 rotate-1 z-10'
-                  : 'bg-white border-slate-100 text-slate-400 hover:border-indigo-400 hover:text-slate-900'
+                  : 'bg-white border-slate-100 text-black hover:border-indigo-400 hover:text-slate-900'
               )}
               style={{ fontSize: grid.fontSize }}
             >
