@@ -44,10 +44,10 @@ export default function InputLane({ laneId, students, totalQuestions, onLaneComp
   }
 
   const getGridConfig = () => {
-    if (totalQuestions <= 12) return { cols: 'grid-cols-3', fontSize: 'text-2xl' };
-    if (totalQuestions <= 20) return { cols: 'grid-cols-4', fontSize: 'text-xl' };
-    if (totalQuestions <= 30) return { cols: 'grid-cols-5', fontSize: 'text-lg' };
-    return { cols: 'grid-cols-6', fontSize: 'text-base' };
+    if (totalQuestions <= 12) return { cols: 'grid-cols-3', fontSize: 'text-3xl' };
+    if (totalQuestions <= 20) return { cols: 'grid-cols-4', fontSize: 'text-2xl' };
+    if (totalQuestions <= 30) return { cols: 'grid-cols-5', fontSize: 'text-xl' };
+    return { cols: 'grid-cols-6', fontSize: 'text-lg' };
   };
 
   const grid = getGridConfig();

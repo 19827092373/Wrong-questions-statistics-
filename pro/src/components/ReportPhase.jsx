@@ -12,6 +12,8 @@ export default function ReportPhase({ results = [], totalQuestions = 20, onReset
   const [selectedQuestion, setSelectedQuestion] = useState(null);
   const [sortMode, setSortMode] = useState('sequence'); // 'sequence' | 'errorRate'
   const [viewMode, setViewMode] = useState('question'); // 'question' | 'student'
+  const [exportMode, setExportMode] = useState('question'); // 'question' | 'student'
+  const [showPreview, setShowPreview] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
   const reportRef = useRef(null);
   const exportViewRef = useRef(null);
@@ -70,7 +72,7 @@ export default function ReportPhase({ results = [], totalQuestions = 20, onReset
     if (rate === 0) return {
       bgGradient: 'bg-slate-50',
       border: 'border-slate-200 border-b-2', // Subtle depth
-      text: 'text-slate-400',
+      text: 'text-emerald-600 font-black',
       shadow: 'shadow-none',
       badge: 'bg-emerald-100 text-emerald-700 opacity-60'
     };
@@ -80,9 +82,9 @@ export default function ReportPhase({ results = [], totalQuestions = 20, onReset
       return {
         bgGradient: 'bg-amber-300', // Solid Amber
         border: 'border-amber-500 border-b-4', // Darker bottom for 3D effect
-        text: 'text-amber-950 font-black',
+        text: 'text-black font-black',
         shadow: 'shadow-sm',
-        badge: 'bg-white/90 text-amber-900 shadow-sm'
+        badge: 'bg-amber-100 text-amber-900 border-2 border-amber-300 shadow-sm'
       };
     }
 
@@ -91,9 +93,9 @@ export default function ReportPhase({ results = [], totalQuestions = 20, onReset
       return {
         bgGradient: 'bg-orange-400', // Solid Orange
         border: 'border-orange-600 border-b-4',
-        text: 'text-white font-black drop-shadow-md', // White text with shadow
+        text: 'text-black font-black',
         shadow: 'shadow-md',
-        badge: 'bg-white text-orange-700 shadow-sm'
+        badge: 'bg-orange-100 text-orange-900 border-2 border-orange-300 shadow-sm'
       };
     }
 
@@ -102,9 +104,9 @@ export default function ReportPhase({ results = [], totalQuestions = 20, onReset
       return {
         bgGradient: 'bg-red-500', // Solid Red
         border: 'border-red-700 border-b-4',
-        text: 'text-white font-black drop-shadow-md',
+        text: 'text-black font-black',
         shadow: 'shadow-md',
-        badge: 'bg-white text-red-700 shadow-sm'
+        badge: 'bg-red-100 text-red-900 border-2 border-red-300 shadow-sm'
       };
     }
 
@@ -112,9 +114,9 @@ export default function ReportPhase({ results = [], totalQuestions = 20, onReset
     return {
       bgGradient: 'bg-rose-600', // Deep Rose
       border: 'border-rose-800 border-b-4',
-      text: 'text-white font-black drop-shadow-md',
+      text: 'text-black font-black',
       shadow: 'shadow-lg',
-      badge: 'bg-white text-rose-800 font-black shadow-md'
+      badge: 'bg-rose-100 text-rose-900 border-2 border-rose-300 font-black shadow-md'
     };
   };
 
@@ -143,6 +145,11 @@ export default function ReportPhase({ results = [], totalQuestions = 20, onReset
     document.body.removeChild(link);
   };
 
+  // Show Preview
+  const handleShowPreview = () => {
+    setShowPreview(true);
+  };
+
   // Export Image
   const handleExportImage = async () => {
     if (!exportViewRef.current) return;
@@ -161,8 +168,9 @@ export default function ReportPhase({ results = [], totalQuestions = 20, onReset
       const image = canvas.toDataURL('image/png');
       const link = document.createElement('a');
       link.href = image;
-      link.download = `学情诊断分析报告_${new Date().toISOString().slice(0, 10)}.png`;
+      link.download = `学情诊断分析报告_${exportMode === 'student' ? '按学生' : '按题号'}_${new Date().toISOString().slice(0, 10)}.png`;
       link.click();
+      setShowPreview(false);
     } catch (error) {
       console.error('Export failed:', error);
       alert('导出失败，请重试');
@@ -187,20 +195,23 @@ export default function ReportPhase({ results = [], totalQuestions = 20, onReset
   return (
     <div className="h-full flex flex-col animate-fade-in gap-8 pb-10">
       {/* Hidden Export View */}
-      <ReportExportView 
+      <ReportExportView
         exportRef={exportViewRef}
+        exportMode={exportMode}
         questionStats={questionStats}
+        studentDetails={studentDetails}
         totalStudents={totalStudents}
+        totalQuestions={totalQuestions}
         getErrorRateStyle={getErrorRateStyle}
       />
 
-      <ReportHeader 
+      <ReportHeader
         totalStudents={totalStudents}
         totalQuestions={totalQuestions}
         sortMode={sortMode}
         setSortMode={setSortMode}
         handleExportCSV={handleExportCSV}
-        handleExportImage={handleExportImage}
+        handleExportImage={handleShowPreview}
         isExporting={isExporting}
         onReset={onReset}
       />
@@ -315,6 +326,141 @@ export default function ReportPhase({ results = [], totalQuestions = 20, onReset
           </div>
         )}
       </div>
+
+      {/* Preview Modal */}
+      {showPreview && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm animate-fade-in" onClick={() => setShowPreview(false)}>
+          <div className="bg-white rounded-3xl shadow-2xl max-w-6xl max-h-[90vh] overflow-hidden flex flex-col" onClick={(e) => e.stopPropagation()}>
+            {/* Modal Header */}
+            <div className="p-6 border-b border-slate-200 bg-gradient-to-r from-indigo-50 to-white">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-2xl font-black text-slate-900">导出预览</h3>
+                <button
+                  onClick={() => setShowPreview(false)}
+                  className="w-8 h-8 rounded-full hover:bg-slate-100 flex items-center justify-center text-slate-400 hover:text-slate-600 transition-all"
+                >
+                  ✕
+                </button>
+              </div>
+
+              {/* Export Mode Selector */}
+              <div className="flex gap-2">
+                <button
+                  onClick={() => setExportMode('question')}
+                  className={cn(
+                    "px-4 py-2 rounded-xl text-sm font-bold transition-all",
+                    exportMode === 'question'
+                      ? "bg-indigo-600 text-white shadow-lg"
+                      : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                  )}
+                >
+                  按题号导出
+                </button>
+                <button
+                  onClick={() => setExportMode('student')}
+                  className={cn(
+                    "px-4 py-2 rounded-xl text-sm font-bold transition-all",
+                    exportMode === 'student'
+                      ? "bg-indigo-600 text-white shadow-lg"
+                      : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                  )}
+                >
+                  按学生导出
+                </button>
+              </div>
+            </div>
+
+            {/* Preview Content */}
+            <div className="flex-1 overflow-auto p-6 bg-slate-50">
+              <div className="transform scale-50 origin-top-left" style={{ width: '200%', height: '200%' }}>
+                <div className="w-[1200px] bg-white p-12 space-y-10 shadow-xl rounded-2xl">
+                  {/* Copy of Export View for Preview */}
+                  <div className="flex justify-between items-end border-b-4 border-slate-100 pb-8">
+                    <div>
+                      <h1 className="text-5xl font-black text-slate-900 tracking-tight">学情诊断分析报告</h1>
+                      <p className="text-slate-400 font-bold uppercase tracking-widest mt-3 text-lg">
+                        {exportMode === 'student' ? '按学生统计 • 错题分布' : '按题号统计 • 学情分析'}
+                      </p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-xl font-black text-indigo-600 uppercase tracking-[0.2em]">数据快照</p>
+                      <p className="text-sm text-slate-400 font-bold mt-2">{new Date().toLocaleString('zh-CN', { hour12: false })}</p>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-3 gap-8">
+                    {exportMode === 'question' ? (
+                      questionStats.filter(q => q.count > 0).sort((a, b) => a.qNum - b.qNum).slice(0, 6).map((q) => {
+                        const style = getErrorRateStyle(q.rate, q.count, totalStudents);
+                        return (
+                          <div key={q.qNum} className="rounded-[2.5rem] border-2 border-slate-200 bg-white shadow-md overflow-hidden">
+                            <div className={cn("px-8 py-6 flex items-center justify-between border-b-2", style.bgGradient, style.border, style.text)}>
+                              <span className="text-4xl font-black tracking-tighter">第 {q.qNum} 题</span>
+                              <div className="bg-white/60 px-4 py-1.5 rounded-2xl text-sm font-black">{q.count} 人错误</div>
+                            </div>
+                            <div className="p-8 bg-slate-50/30">
+                              <div className="flex flex-wrap gap-3">
+                                {q.students.slice(0, 6).map((student, idx) => (
+                                  <span key={idx} className="px-5 py-2.5 rounded-2xl bg-white border-2 border-slate-200 text-lg font-black text-slate-800">
+                                    {student}
+                                  </span>
+                                ))}
+                                {q.students.length > 6 && <span className="px-5 py-2.5 text-slate-400">...</span>}
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })
+                    ) : (
+                      studentDetails.filter(s => s.wrongCount > 0).slice(0, 6).map((student, idx) => (
+                        <div key={idx} className="rounded-[2.5rem] border-2 border-slate-200 bg-white shadow-md overflow-hidden">
+                          <div className="px-8 py-6 border-b-2 bg-gradient-to-br from-indigo-500 to-indigo-600 border-indigo-700">
+                            <div className="flex items-center justify-between">
+                              <span className="text-3xl font-black text-white tracking-tight">{student.name}</span>
+                              <div className="bg-white/90 px-4 py-1.5 rounded-2xl text-sm font-black">
+                                <span className="text-red-600">{student.wrongCount}</span>
+                                <span className="text-slate-400 text-xs ml-1">/{totalQuestions}</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="p-8 bg-slate-50/30">
+                            <div className="flex flex-wrap gap-3">
+                              {student.wrong.sort((a, b) => a - b).slice(0, 8).map((qNum, qIdx) => (
+                                <span key={qIdx} className="w-14 h-14 flex items-center justify-center rounded-2xl bg-red-500 border-2 border-red-600 text-2xl font-black text-white">
+                                  {qNum}
+                                </span>
+                              ))}
+                              {student.wrong.length > 8 && <span className="text-slate-400">...</span>}
+                            </div>
+                          </div>
+                        </div>
+                      ))
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Modal Footer */}
+            <div className="p-6 border-t border-slate-200 bg-white flex justify-end gap-3">
+              <Button
+                variant="outline"
+                onClick={() => setShowPreview(false)}
+                className="rounded-xl px-6 font-bold"
+              >
+                取消
+              </Button>
+              <Button
+                onClick={handleExportImage}
+                disabled={isExporting}
+                className="bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl px-6 font-bold shadow-indigo-glow"
+              >
+                {isExporting ? '导出中...' : '确认导出'}
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

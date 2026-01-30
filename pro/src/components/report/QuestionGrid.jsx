@@ -47,11 +47,11 @@ export default function QuestionGrid({ questionStats, selectedQuestion, setSelec
                {/* Error Count Badge */}
                {!isPerfect && (
                  <div className={cn(
-                   "flex items-center gap-1 px-1.5 py-0.5 rounded text-[11px] font-black uppercase tracking-tight shadow-sm transition-transform group-hover:scale-110",
+                   "flex items-center gap-0.5 px-1 py-0 rounded text-[10px] font-black uppercase tracking-tight shadow-sm transition-transform group-hover:scale-110",
                    style.badge
                  )}>
                    <span>{q.count}</span>
-                   <User className="w-3 h-3" />
+                   <User className="w-2.5 h-2.5" />
                  </div>
                )}
             </div>
